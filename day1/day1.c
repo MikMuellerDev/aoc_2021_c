@@ -10,11 +10,11 @@ void Run1()
     string = (char *)malloc(20001);
     strcpy(string, read_file("./day1/input.txt"));
 
-    printf("Part1 --> increased: %d\n", Part1(string));
-    printf("Part2 --> increased: %d\n", Part2(read_file("./day1/input.txt")));
+    printf("Part1 --> increased: %d\n", Part11(string));
+    printf("Part2 --> increased: %d\n", Part12(read_file("./day1/input.txt")));
 }
 
-int Part1(char *string)
+int Part11(char *string)
 {
     int i = 0;
     int stringLen = strlen(string);
@@ -64,7 +64,7 @@ int Part1(char *string)
     return increases + 1;
 }
 
-int Part2(char *inputString)
+int Part12(char *inputString)
 {
     // "Prepare" the string into a array of ints
 

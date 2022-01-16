@@ -4,6 +4,6 @@
 /* Prototypes for the functions */
 /* Runs both parts of the puzzle */
 void Run1();
-int Part1(char string[]);
-int Part2(char string[]);
+int Part11(char string[]);
+int Part12(char string[]);
 #endif
