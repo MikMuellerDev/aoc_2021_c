@@ -10,54 +10,36 @@ void Run3()
     string = (char *)malloc(20001);
     strcpy(string, read_file("./day3/input.txt"));
 
-    printf("Part1 --> bit stuff: %d\n", Part31(string));
+    printf("Part1 --> Power Consumption: %d\n", Part31(string));
     // printf("Part2 --> increased: %d\n", Part12(read_file("./day1/input.txt")));
-}
-
-int getBitLength(char *string)
-{
-    char *context = NULL;
-    return strlen(strtok_r(string, "\n", &context));
 }
 
 int Part31(char *string)
 {
+    char *context = NULL;
 
-    char *tmpstr = malloc(sizeof(string));
-    strcpy(tmpstr, string);
-
-    char *tempString;
+    char tempString[strlen(string)];
+    strcpy(tempString, string);
+    int len = strlen(strtok_r(tempString, "\n", &context));
     strcpy(tempString, string);
 
-    // Get the length of one line
-    int len = getBitLength(tempString);
-    free(tempString);
-
-    // char *oxygen = malloc(sizeof(int) * len);
-    // char *co2 = malloc(sizeof(int) * len);
-
-    int oxygen[len];
+    int *gamma = malloc((sizeof(int) * len) + 1);
+    int *epsilon = malloc((sizeof(int) * len) + 1);
 
     for (int i = 0; i < len; i++)
     {
-        // Count of 0s
-        int count0 = 0;
-        // Count of 1s
-        int count1 = 0;
-
-        // printf("len: %d", len);
-
-        printf("Outer Iteration\n");
-        char *tempstr;
+        strcpy(tempString, string);
         char *context = NULL;
-        strcpy(tempstr, string);
-        char *ptr = strtok_r(tempstr, "\n", &context);
+
+        char count0 = 0;
+        char count1 = 0;
+        char *ptr = strtok_r(tempString, "\n", &context);
 
         while (ptr != NULL)
         {
             if (strlen(ptr) == len)
             {
-                // printf("%c\n", ptr[i]);
+                // printf("%c", ptr[i]);
                 switch (ptr[i])
                 {
                 case '1':
@@ -73,24 +55,33 @@ int Part31(char *string)
             }
             ptr = strtok_r(NULL, "\n", &context);
         }
-        // printf("Count 0: %d, Count 1: %d\n", count0, count1);
+        // printf("\nCount 0: %d, Count 1: %d\n", count0, count1);
 
-        // if (count0 > count1)
-        // {
-        //     oxygen[i] = 0;
-        //     co2[i] = 1;
-        // }
-        // else if (count1 > count0)
-        // {
-        //     oxygen[i] = 1;
-        //     co2[i] = 0;
-        // }
-        // else
-        // {
-        //     oxygen[i] = 1;
-        //     co2[i] = 0;
-        // }
-        // Use the nice stack
+        if (count0 > count1)
+        {
+            epsilon[i] = '1';
+            gamma[i] = '0';
+        }
+        else if (count1 > count0)
+        {
+            epsilon[i] = '0';
+            gamma[i] = '1';
+        }
     }
-    return 1;
+
+    char gammaTemp[len + 1];
+    char epsilonTemp[len + 1];
+
+    for (int j = 0; j < len; j++)
+    {
+        gammaTemp[j] = (char) gamma[j];
+    }
+    gammaTemp[len + 1] = '\0';
+
+    for (int j = 0; j < len; j++)
+    {
+        epsilonTemp[j] = (char) epsilon[j];
+    }
+    return strtol(gammaTemp, NULL, 2) * strtol(epsilonTemp, NULL, 2);
+    return 0;
 }
