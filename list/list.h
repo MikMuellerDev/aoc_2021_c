@@ -14,6 +14,8 @@ node *createNode(int x, int y);
 void printList(node *head);
 int length(node *head);
 node *get(node *head, int index);
+int getX(node *head, int index);
+int getY(node *head, int index);
 bool isEmpty(node *head);
 bool listContains(node *head, int x, int y);
 void push(node **head, int x, int y);

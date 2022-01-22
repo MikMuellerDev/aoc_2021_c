@@ -25,14 +25,16 @@ int Part51(char *string)
     int coordinates[4];
     int coordPairNum = 0;
     node *list = NULL;
+    node *markedList = NULL;
     int intersections = 0;
     bool execLoop = true;
     bool nextLoop = true;
+
+    push(&list, -111, -111);
     while (ptr != NULL)
     {
         int charIndex = 0;
-        if (strlen(ptr) == len)
-        {
+     
             char *contextLine = NULL;
             char *coordinate = strtok_r(ptr, " -> ", &contextLine);
             while (coordinate != NULL)
@@ -51,77 +53,88 @@ int Part51(char *string)
                 }
                 if (coordPairNum == 1)
                 {
-                    printf("\nCoordinate pair complete:\n    | (%d,%d) -> (%d,%d)\n", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
-                    if (coordinates[0] == coordinates[2])
+                    int x1 = coordinates[0];
+                    int y1 = coordinates[1];
+                    int x2 = coordinates[2];
+                    int y2 = coordinates[3];
+                    // printf("\nCoordinate pair complete:\n    | (%d,%d) -> (%d,%d)\n", coordinates[0], coordinates[1], coordinates[2], coordinates[3]);
+                    if (x1 == x2)
                     {
-                        if (coordinates[1] > coordinates[3])
+                        if (y2 > y1)
                         {
-                            for (int c = coordinates[3]; c <= coordinates[1]; c++)
+                            for (int y = y1; y <= y2; y++)
                             {
-                                if (!listContains(list, coordinates[0], c))
+                                // printf("    | (%d|%d)\n", x1, y);
+                                // push(&list, x1, y);
+                                if (!listContains(list, x1, y))
                                 {
-                                    push(&list, coordinates[0], c);
+                                    push(&list, x1, y);
                                 }
-                                else
+                                else if (!listContains(markedList, x1, y))
                                 {
+                                    // printf("    | LIST CONTAINS (%d|%d)\n", x1, y);
+                                    push(&markedList, x1, y);
                                     intersections++;
                                 }
                             }
-                            printf("    | All coordinates of route calculated.\n");
                         }
                         else
                         {
-                            for (int c = coordinates[1]; c <= coordinates[3]; c++)
+                            for (int y = y2; y <= y1; y++)
                             {
-                                if (!listContains(list, coordinates[0], c))
+                                // printf("    | (%d|%d)\n", x1, y);
+                                // push(&list, x1, y);
+                                if (!listContains(list, x1, y))
                                 {
-                                    push(&list, coordinates[0], c);
+                                    push(&list, x1, y);
                                 }
-                                else
+                                else if (!listContains(markedList, x1, y))
                                 {
+                                    // printf("    | LIST CONTAINS (%d|%d)\n", x1, y);
+                                    push(&markedList, x1, y);
                                     intersections++;
                                 }
                             }
-                            printf("    | All coordinates of route calculated.\n");
                         }
                     }
-                    else if (coordinates[1] == coordinates[3])
+                    else if (y1 == y2)
                     {
-                        if (coordinates[0] > coordinates[2])
+                        if (x2 > x1)
                         {
-                            for (int c = coordinates[2]; c <= coordinates[0]; c++)
+                            for (int x = x1; x <= x2; x++)
                             {
-                                if (!listContains(list, c, coordinates[1]))
+                                // printf("    | (%d|%d)\n", x, y1);
+                                // push(&list, x, y1);
+                                if (!listContains(list, x, y1))
                                 {
-                                    push(&list, c, coordinates[1]);
+                                    push(&list, x, y1);
                                 }
-                                else
+                                else if (!listContains(markedList, x, y1))
                                 {
+                                    // printf("    | LIST CONTAINS (%d|%d)\n", x, y1);
+                                    push(&markedList, x, y1);
                                     intersections++;
                                 }
                             }
-                            printf("    | All coordinates of route calculated.\n");
                         }
                         else
                         {
-                            for (int c = coordinates[0]; c <= coordinates[2]; c++)
+                            for (int x = x2; x <= x1; x++)
                             {
-
-                                if (!listContains(list, c, coordinates[1]))
+                                // printf("    | (%d|%d)\n", x, y1);
+                                // push(&list, x, y1);
+                                if (!listContains(list, x, y1))
                                 {
-                                    push(&list, c, coordinates[1]);
+                                    push(&list, x, y1);
                                 }
-                                else
+                                else if (!listContains(markedList, x, y1))
                                 {
+                                    // printf("    | LIST CONTAINS (%d|%d)\n", x, y1);
+                                    push(&markedList, x, y1);
                                     intersections++;
                                 }
                             }
-                            printf("    | All coordinates of route calculated.\n");
                         }
-                    }
-                    else
-                    {
-                        printf("    | Ignoring diagonal route.\n");
                     }
                     coordPairNum = 0;
                 }
@@ -131,11 +144,10 @@ int Part51(char *string)
                 }
                 coordinate = strtok_r(NULL, "  -> ", &contextLine);
             }
-        }
         outerIndex++;
         ptr = strtok_r(NULL, "\n", &context);
     }
     printf("\nAll calculated coordinates:\n    | ");
-    printList(list);
+    // printList(list);
     return intersections;
 }

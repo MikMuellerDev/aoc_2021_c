@@ -48,7 +48,8 @@ bool listContains(node *head, int x, int y)
         temp = temp->next;
         if (temp != NULL)
         {
-            if (temp->x == x && temp->y == y) {
+            if (temp->x == x && temp->y == y)
+            {
                 return true;
             }
             currentIndex++;
@@ -80,6 +81,85 @@ node *get(node *head, int index)
                 return temp;
             }
         }
+    }
+}
+
+int getX(node *head, int index)
+{
+    node *temp = head;
+    int len = length(head);
+    int current = 0;
+
+    if (index >= len)
+    {
+        printf("Index out of bounds.");
+        return head;
+    }
+
+    while (temp != NULL)
+    {
+        if (current == index)
+        {
+            return temp->x;
+        }
+
+        temp = temp->next;
+        // if (temp != NULL)
+        // {
+
+        // }
+        current++;
+    }
+}
+
+int getY(node *head, int index)
+{
+    // int len = length(head);
+    // int currentIndex = 0;
+    // node *temp = head;
+
+    // if (index >= len)
+    // {
+    //     printf("Index out of bounds.");
+    //     return head;
+    // }
+
+    // while (temp != NULL)
+    // {
+    //     temp = temp->next;
+    //     if (temp != NULL)
+    //     {
+    //         currentIndex++;
+    //         if (currentIndex == index)
+    //         {
+    //             return temp->y;
+    //         }
+    //     }
+    // }
+
+    node *temp = head;
+    int len = length(head);
+    int current = 0;
+
+    if (index >= len)
+    {
+        printf("Index out of bounds.");
+        return head;
+    }
+
+    while (temp != NULL)
+    {
+        if (current == index)
+        {
+            return temp->y;
+        }
+
+        temp = temp->next;
+        // if (temp != NULL)
+        // {
+
+        // }
+        current++;
     }
 }
 
