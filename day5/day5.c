@@ -3,7 +3,7 @@
 #include <string.h>
 #include "day5.h"
 #include "../file/file.h"
-#include "../list/list.h"
+#include "./list/list.h"
 
 void Run5()
 {
@@ -64,15 +64,12 @@ int Part51(char *string)
                         {
                             for (int y = y1; y <= y2; y++)
                             {
-                                // printf("    | (%d|%d)\n", x1, y);
-                                // push(&list, x1, y);
                                 if (!listContains(list, x1, y))
                                 {
                                     push(&list, x1, y);
                                 }
                                 else if (!listContains(markedList, x1, y))
                                 {
-                                    // printf("    | LIST CONTAINS (%d|%d)\n", x1, y);
                                     push(&markedList, x1, y);
                                     intersections++;
                                 }
@@ -82,15 +79,12 @@ int Part51(char *string)
                         {
                             for (int y = y2; y <= y1; y++)
                             {
-                                // printf("    | (%d|%d)\n", x1, y);
-                                // push(&list, x1, y);
                                 if (!listContains(list, x1, y))
                                 {
                                     push(&list, x1, y);
                                 }
                                 else if (!listContains(markedList, x1, y))
                                 {
-                                    // printf("    | LIST CONTAINS (%d|%d)\n", x1, y);
                                     push(&markedList, x1, y);
                                     intersections++;
                                 }
@@ -103,15 +97,12 @@ int Part51(char *string)
                         {
                             for (int x = x1; x <= x2; x++)
                             {
-                                // printf("    | (%d|%d)\n", x, y1);
-                                // push(&list, x, y1);
                                 if (!listContains(list, x, y1))
                                 {
                                     push(&list, x, y1);
                                 }
                                 else if (!listContains(markedList, x, y1))
                                 {
-                                    // printf("    | LIST CONTAINS (%d|%d)\n", x, y1);
                                     push(&markedList, x, y1);
                                     intersections++;
                                 }
@@ -121,15 +112,12 @@ int Part51(char *string)
                         {
                             for (int x = x2; x <= x1; x++)
                             {
-                                // printf("    | (%d|%d)\n", x, y1);
-                                // push(&list, x, y1);
                                 if (!listContains(list, x, y1))
                                 {
                                     push(&list, x, y1);
                                 }
                                 else if (!listContains(markedList, x, y1))
                                 {
-                                    // printf("    | LIST CONTAINS (%d|%d)\n", x, y1);
                                     push(&markedList, x, y1);
                                     intersections++;
                                 }
@@ -147,7 +135,5 @@ int Part51(char *string)
         outerIndex++;
         ptr = strtok_r(NULL, "\n", &context);
     }
-    printf("\nAll calculated coordinates:\n    | ");
-    // printList(list);
     return intersections;
 }
