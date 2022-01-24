@@ -114,29 +114,6 @@ int getX(node *head, int index)
 
 int getY(node *head, int index)
 {
-    // int len = length(head);
-    // int currentIndex = 0;
-    // node *temp = head;
-
-    // if (index >= len)
-    // {
-    //     printf("Index out of bounds.");
-    //     return head;
-    // }
-
-    // while (temp != NULL)
-    // {
-    //     temp = temp->next;
-    //     if (temp != NULL)
-    //     {
-    //         currentIndex++;
-    //         if (currentIndex == index)
-    //         {
-    //             return temp->y;
-    //         }
-    //     }
-    // }
-
     node *temp = head;
     int len = length(head);
     int current = 0;
